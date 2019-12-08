@@ -1,0 +1,31 @@
+[[plugins]]
+repo = 'skanehira/docker.vim'
+
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = '''
+cd app & yarn install
+'''
+
+[[plugins]]
+repo = '/usr/local/opt/fzf' # fzfコマンドラインツールののフルパス
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+[[plugins]]
+repo = 'simeji/winresizer'
+[[plugins]]
+repo = 'mattn/emmet-vim'
+[[plugins]]
+repo = 'skanehira/translate.vim'
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
