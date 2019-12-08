@@ -20,6 +20,7 @@ repo = 'simeji/winresizer'
 repo = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'skanehira/translate.vim'
+
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 [[plugins]]
@@ -28,4 +29,3 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
-

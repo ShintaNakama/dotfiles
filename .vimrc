@@ -1,19 +1,16 @@
-" シェルを指定してください
 set shell=/bin/bash
 set encoding=utf8
 scriptencoding utf8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set t_Co=256
-"シンタックス
-syntax off
-"ファイルタイププラグイン
-filetype plugin indent on
+" スワップファイルの作成先を変更
+set noswapfile
+" ビープ音を消す
+set belloff=all
 "カーソルライン
 set cursorline
 "行番号
 set number
-"相対的な行番号
-"set relativenumber"
 "検索結果をハイライトする
 set hlsearch
 "検索時大文字小文字を区別しない
@@ -30,6 +27,8 @@ if has('persistent_undo')
  set undofile
 endif
 
+"ファイルタイププラグイン
+filetype plugin indent on
 "展開するスペースの個数
 set tabstop=2
 "タブをスペースに展開
@@ -49,11 +48,9 @@ set laststatus=2
 set virtualedit=block
 "コマンドライン補間
 set wildmenu
+" 挿入モードでバックスペースで削除できるようにする
+set backspace=indent,eol,start
 
-"ターミナルを垂直で開く
-nnoremap <C-s>\ :vert term ++close
-nnoremap <C-s>- :bo term ++close
-nnoremap <C-s>^ :tab term ++close
 " キーバインド------------------------------------------------------------------
 
 " xで削除した時はヤンクしない
@@ -62,17 +59,17 @@ nnoremap x "_x
 
 " 1 で行頭に移動
 nnoremap 1 ^
-
 " 2で行末に移動
 nnoremap 2 $
 
-" 画面分割系
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
-nnoremap ss :<C-u>sp<CR><C-w>j
-nnoremap sv :<C-u>vs<CR><C-w>l
+" 括弧の補完
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+
+" クオーテーションの補完
+inoremap ' ''<LEFT>
+inoremap " ""<LEFT>
 
 
 " plugin manager ---------------------------------------------
@@ -123,11 +120,35 @@ if len(s:removed_plugins) > 0
   call dein#recache_runtimepath()
 endif
 
-if executable('go-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-        \ 'whitelist': ['go'],
-        \ })
-    autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
+if executable('gopls')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'gopls',
+    \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+    \ 'whitelist': ['go'],
+    \ })
+  autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
 endif
+
+if executable('go-langserver')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'go-langserver',
+    \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+    \ 'whitelist': ['go'],
+    \ })
+  autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
+endif
+
+" ------------------------------------------------------------
+
+" カラースキーム
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+"シンタックス
+syntax on
