@@ -152,3 +152,6 @@ endif
 
 "シンタックス
 syntax on
+
+" -----------------------------------------------------------
+au FileType plantuml command! OpenUml : !start chrome %
