@@ -50,6 +50,8 @@ set virtualedit=block
 set wildmenu
 " 挿入モードでバックスペースで削除できるようにする
 set backspace=indent,eol,start
+" ヴィジュアルモードで選択、ヤンクしてctr-vで貼り付け"
+set clipboard+=unnamed
 
 " キーバインド------------------------------------------------------------------
 
@@ -124,15 +126,6 @@ if executable('gopls')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'gopls',
     \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-    \ 'whitelist': ['go'],
-    \ })
-  autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
-endif
-
-if executable('go-langserver')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'go-langserver',
-    \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
     \ 'whitelist': ['go'],
     \ })
   autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
