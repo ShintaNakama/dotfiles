@@ -5,7 +5,7 @@
   - dein.vim
 #### Markdownプレビュー
 ```
-􀙆􀘒􀘕􀙜􀘅􊪛􀖷􀗙:Markdown
+:Markdown
 # ファイルを開いて上記を実行
 ```
 #### ファイル検索
