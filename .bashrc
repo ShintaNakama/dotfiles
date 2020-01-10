@@ -27,6 +27,8 @@ alias brup='brew update && brew upgrade'
 
 # tmux
 alias t='tmux'
+alias tlist='tmux list-session'
+alias tatt='tmux attach -t'
 
 # git
 alias gsta='git status'
@@ -44,3 +46,4 @@ wttr()
 {
   curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}"
 }
+
