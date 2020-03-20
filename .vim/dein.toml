@@ -1,5 +1,5 @@
-[[plugins]]
-repo = 'skanehira/docker.vim'
+#[[plugins]]
+#repo = 'skanehira/docker.vim'
 
 [[plugins]]
 repo = 'iamcco/markdown-preview.nvim'
