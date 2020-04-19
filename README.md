@@ -19,3 +19,13 @@
 # uml図生成のコードを書いたら、openコマンドでhtmlファイルを開くとchromeで確認できる
 ```
 
+#### zshへ変更
+```
+# 現在のログインシェルを確認
+$ echo $SHELL
+# sudo vi /etc/shellsで以下を追記
+/usr/local/bin/zsh
+# ログインシェル変更
+$ chsh -s /usr/local/bin/zsh
+```
+
