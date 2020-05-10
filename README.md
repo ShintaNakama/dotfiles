@@ -1,6 +1,4 @@
 # dotfiles
-- 設定に関しては下記の記事を参考にしています。
-[参考記事](https://qiita.com/jiroshin/items/ee86ea426a51fa24b319)
 #### プラグインマネージャー
   - dein.vim
 #### Markdownプレビュー
@@ -29,3 +27,29 @@ $ echo $SHELL
 $ chsh -s /usr/local/bin/zsh
 ```
 
+#### git commit_template適用
+```
+git config --global commit.template ~/.commit_template
+```
+
+#### brew file
+```
+# homebrew install
+[homebrew](https://brew.sh/index_ja)
+
+# Brewfileからbrew install(Brewfileがないとだめ)
+brew bundle --global
+
+# Brewfileに入っていないアプリを削除
+brew bundle cleanup
+
+# Brewfileにインストール済みアプリのリストを出力
+brew bundle dump
+```
+
+```
+# zshrc など必要なconfigファイルのシンボリックリンクを作成
+ln -s dotfiles/.zshrc ~/.zshrc
+```
+- 設定に関しては下記の記事を参考にしています。
+[参考記事](https://qiita.com/jiroshin/items/ee86ea426a51fa24b319)
