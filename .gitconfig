@@ -1,0 +1,5 @@
+[user]
+	name = ShintaNakama
+	email = shintanakama77@gmail.com
+[http]
+	postBuffer = 16M

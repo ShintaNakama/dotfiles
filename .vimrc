@@ -1,4 +1,4 @@
-set shell=/bin/bash
+set shell=/bin/zsh
 set encoding=utf8
 scriptencoding utf8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis

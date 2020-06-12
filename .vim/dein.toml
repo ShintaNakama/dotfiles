@@ -1,6 +1,3 @@
-#[[plugins]]
-#repo = 'skanehira/docker.vim'
-
 [[plugins]]
 repo = 'iamcco/markdown-preview.nvim'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
