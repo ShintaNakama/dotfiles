@@ -53,3 +53,5 @@ ln -s dotfiles/.zshrc ~/.zshrc
 ```
 - 設定に関しては下記の記事を参考にしています。
 [参考記事](https://qiita.com/jiroshin/items/ee86ea426a51fa24b319)
+
+- vim-lspが上手く動かない場合は、一旦deinの該当プラグインをコメントアウトしてvimを起動し、再度コメントアウトを戻してからvimを起動させると再読み込みされ動く可能性がある

@@ -18,14 +18,38 @@ repo = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'skanehira/translate.vim'
 
+#####################
+# For Vim-lsp
+#####################
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
+
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
+
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-snippets'
+
+[[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-ultisnips'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
 
 
 [[plugins]]
@@ -33,3 +57,18 @@ repo = 'aklt/plantuml-syntax'
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
+#####################
+# For Go
+#####################
+[[plugins]]
+repo = 'mattn/vim-goimports'
+
+[[plugins]]
+repo = 'buoto/gotests-vim'
+
+[[plugins]]
+repo = 'sebdah/vim-delve'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
