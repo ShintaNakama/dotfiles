@@ -42,7 +42,7 @@ alias glog='git log'
 alias gbra='git branch'
 
 # 天気
-wttr()
+tenki()
 {
   curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}"
 }

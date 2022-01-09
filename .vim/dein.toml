@@ -17,6 +17,27 @@ repo = 'simeji/winresizer'
 repo = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'skanehira/translate.vim'
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace' # 空白削除
+[[plugins]]
+repo = 'flazz/vim-colorschemes'
+[[plugins]]
+repo = 'jamespwilliams/bat.vim'
+[[plugins]]
+repo = 'jparise/vim-graphql'
+#[[plugins]]
+#repo = 'mhinz/vim-startify'
+[[plugins]]
+repo = 'Rigellute/rigel'
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+[[plugins]]
+repo = 'mxw/vim-jsx'
+[[plugins]]
+repo = 'tpope/vim-surround'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
 
 #####################
 # For Vim-lsp
@@ -72,3 +93,22 @@ repo = 'sebdah/vim-delve'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
+
+# For test
+[[plugins]]
+repo = 'vim-test/vim-test'
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+
+[[plugins]]
+repo = 'rhysd/vim-go-impl'
+
+[[plugins]]
+repo = '110y/vim-go-expr-completion'
+
+##[[plugins]]
+##repo = 'fatih/vim-go'
+
+[[plugins]]
+repo = 'lighttiger2505/sqls.vim'

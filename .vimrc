@@ -9,6 +9,7 @@ set noswapfile
 set belloff=all
 "カーソルライン
 set cursorline
+hi clear CursorLine
 "行番号
 set number
 "検索結果をハイライトする
@@ -19,6 +20,11 @@ set ignorecase
 set smartcase
 "文字を入力するたびに、その時点でパターンマッチしたテキストをハイライト
 set incsearch
+set nrformats=
+
+set history=200
+cnoremap <C-p> <up>
+cnoremap <C-n> <down>
 
 " Undo履歴の保存
 if has('persistent_undo')
@@ -29,6 +35,8 @@ endif
 
 "ファイルタイププラグイン
 filetype plugin indent on
+set modifiable
+set write
 "展開するスペースの個数
 set tabstop=2
 "タブをスペースに展開
@@ -58,19 +66,24 @@ set helplang=ja
 " <leader>を"\"から変更
 let mapleader = "\<Space>"
 
-" 操作設定
-" jjをESCキー
-inoremap <silent> jj <esc>
+"set ttimeoutlen=1
+set timeout timeoutlen=3000 ttimeoutlen=100
+
 " キーバインド------------------------------------------------------------------
+" jjをESCキー
+"inoremap <silent> jj <esc>
+
+" Ctrl-p でレジスタ0を貼り付け"
+vnoremap <silent> <C-p> "0p
 
 " xで削除した時はヤンクしない
 vnoremap x "_x
 nnoremap x "_x
 
-" 1 で行頭に移動
-nnoremap 1 ^
-" 2で行末に移動
-nnoremap 2 $
+" Shift + hで行頭文字に移動
+noremap <S-h> ^
+" Shift + lで行末に移動
+noremap <S-l> $
 
 " 括弧の補完
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
@@ -78,9 +91,35 @@ inoremap [<Enter> []<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 
 " クオーテーションの補完
-inoremap ' ''<LEFT>
-inoremap " ""<LEFT>
+"inoremap ' ''<LEFT>
+"inoremap " ""<LEFT>
 
+
+"強制終了
+nnoremap qq :q!<CR>
+
+"" + => increment
+nnoremap + <C-a>
+
+"" - => decrement
+nnoremap - <C-x>
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+"" vimshell
+nnoremap <Leader>sh :terminal<CR>
+
+"" fzf
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>fg :<C-u>silent call <SID>find_rip_grep()<CR>
+function! s:find_rip_grep() abort
+    call fzf#vim#grep(
+                \   'rg --ignore-file ~/.ignore --column --line-number --no-heading --hidden --smart-case .+',
+                \   1,
+                \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+                \   0,
+                \ )
+endfunction
 
 " plugin manager ---------------------------------------------
 let s:dein_dir = expand('~/.cache/dein')
@@ -169,7 +208,12 @@ let g:lsp_settings['gopls'] = {
   \    'analyses': {
   \      'fillstruct': v:true,
   \    },
+  \    "experimentalWorkspaceModule": v:true,
   \  },
+  \}
+let g:lsp_settings['golangci-lint-langserver'] = {
+  \ 'initialization_options': {'command': ['golangci-lint', 'run', '--enable-all', '--disable', 'lll', '--out-format', 'json']},
+  \ 'whitelist': ['go'],
   \}
 
 " For snippets
@@ -177,28 +221,10 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" 補完表示時のEnterで改行をしない
-inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
-
 set completeopt=menuone,noinsert
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 " ------------------------------------------------------------
-
-" カラースキーム
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
-"シンタックス
-syntax on
-
-" -----------------------------------------------------------
 au FileType plantuml command! OpenUml : !start chrome %
 
 " Anywhere SID.
@@ -233,10 +259,9 @@ nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 " Tab jump
 for n in range(1, 9)
+" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
-
 map <silent> [Tag]c :tablast <bar> tabnew<CR>
 " tc 新しいタブを一番右に作る
 map <silent> [Tag]x :tabclose<CR>
@@ -245,3 +270,191 @@ map <silent> [Tag]n :tabnext<CR>
 " tn 次のタブ
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
+
+" ステータスラインに日付表示
+function! g:Date()
+  let weeks = [ "(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)" ]
+  let wday = strftime("%w")
+  return strftime('%Y/%m/%d').weeks[wday].strftime(' %H:%M')
+endfunction
+
+let g:rigel_lightline = 1
+let g:lightline = {
+  \ 'colorscheme': 'rigel',
+  \ 'active': {
+  \   'right': [
+  \     ['lineinfo'],
+  \     ['percent'],
+  \     ['charcode','fileencoding','date'],
+  \   ],
+  \ },
+  \ 'component_function': {
+  \   'date': 'Date',
+  \ },
+  \ 'component_expand': {
+  \ },
+  \ 'component_type': {
+  \ },
+  \}
+
+" for vim-test
+let test#strategy = "basic"
+let test#go#runner = 'gotest'
+let test#go#gotest#executable = 'gotest -v -cover'
+" tのあとにCTRL+dでテストをデバッガ経由で実行する
+function! DebugNearest()
+  let g:test#go#runner = 'delve'
+  TestNearest
+  unlet g:test#go#runner
+endfunction
+nmap <silent> t<C-d> :call DebugNearest()<CR>
+
+" 構造体にinterfaceを自動実装する(対象のGo module内に移動して、構造体名にカーソルを当てる) :IMP
+autocmd BufNewFile,BufRead *go command! IMP call s:go_fzf_implement_interface()
+
+function! s:go_fzf_implement_interface() abort
+    let source = 'go_list_interfaces'
+
+    call fzf#run({
+                \   'source': source,
+                \   'sink':   function('s:go_implement_interface'),
+                \   'down':   '40%'
+                \ })
+endfunction
+
+function! s:go_implement_interface(interface) abort
+    call s:go_execute_impl(a:interface, v:false)
+endfunction
+
+function! s:go_receiver() abort
+  let line = line(".")
+  let col  = col(".")
+  let word = expand("<cword>")
+  let res = word[0].' *'.word
+  return res
+endfunction
+
+function! s:go_execute_impl(interface, is_std_pkg) abort
+    let pos = getpos('.')
+    let recv = s:go_receiver()
+
+    " Make sure we put the generated code *after* the struct.
+    if getline('.') =~# 'struct '
+        normal! $%
+    endif
+
+    if !a:is_std_pkg
+        let pkg = system('go mod edit -json | jq -r .Module.Path | tr -d "\n"')
+        if a:interface =~# '^\.'
+            let interface = printf('%s%s', pkg, a:interface)
+        else
+            let interface = printf('%s/%s', pkg, a:interface)
+        endif
+    else
+        let interface = a:interface
+    end
+    try
+        echo recv
+        echo interface
+        let dirname = fnameescape(expand('%:p:h'))
+        let [result, err] = go#util#Exec(['impl', '-dir', dirname, recv, interface])
+        let result = substitute(result, "\n*$", '', '')
+        if err
+            call go#util#EchoError(result)
+            return
+        endif
+
+        if result is# ''
+            return
+        end
+
+        put =''
+        silent put =result
+    finally
+        call setpos('.', pos)
+    endtry
+endfunction
+
+" translate
+let g:translate_source = "en"
+let g:translate_target = "ja"
+let g:translate_popup_window = 1
+let g:translate_winsize = 10
+
+" カーソル下の単語をGoogleで検索する <leader>gs
+function! s:search_by_google()
+    let line = line(".")
+    let col  = col(".")
+    let searchWord = expand("<cword>")
+    if searchWord  != ''
+        execute 'read !open https://www.google.co.jp/search\?q\=' . searchWord
+        execute 'call cursor(' . line . ',' . col . ')'
+    endif
+endfunction
+command! SearchByGoogle call s:search_by_google()
+nnoremap <silent> <leader>gs :SearchByGoogle<CR>
+
+"
+autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
+
+" ファイルツリーの表示形式、1にするとls -laのような表示になります
+let g:netrw_liststyle=1
+" ヘッダを非表示にする
+let g:netrw_banner=0
+" サイズを(K,M,G)で表示する
+let g:netrw_sizestyle="H"
+" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
+" プレビューウィンドウを垂直分割で表示する
+let g:netrw_preview=1
+" 左右分割を右側に開く
+let g:netrw_altv = 1
+
+let g:startify_session_persistence = 1
+" Once vim-javascript is installed you enable flow highlighting
+let g:javascript_plugin_flow = 1
+
+" カラースキーム
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+
+    "let g:tokyonight_style = 'storm' " available: night, storm
+    "let g:tokyonight_transparent_background = 0
+    "let g:tokyonight_enable_italic = 1
+
+    "colorscheme molokai
+    "colorscheme bat
+    colorscheme rigel
+  endif
+endif
+
+"シンタックス
+"syntax on
+syntax enable
+
+"sqls
+if executable('sqls')
+    augroup LspSqls
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'sqls',
+        \   'cmd': {server_info->['sqls']},
+        \   'whitelist': ['sql'],
+        \   'workspace_config': {
+        \     'sqls': {
+        \       'connections': [
+        \         {
+        \           'driver': 'mysql',
+        \           'dataSourceName': 'root:HINATA_DEV@tcp(127.0.0.1:3306)/cosmos_db',
+        \         },
+        \       ],
+        \     },
+        \   },
+        \ })
+    augroup END
+endif
+

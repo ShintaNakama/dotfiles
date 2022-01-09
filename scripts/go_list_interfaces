@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rg '^type [A-Z].* interface' --type go --ignore-file ~/.ignore --no-heading --no-line-number | while read line; do
+    pkg=$(echo -e $line | perl -nle 'm/^(.*)\/(.+)\.go:/; print $1')
+
+    type=$(echo -e $line | perl -nle 'm/^.*type (.*) interface/; print $1')
+
+    echo "${pkg}.${type}"
+done

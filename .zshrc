@@ -2,6 +2,8 @@
 export LANG=ja_JP.UTF-8
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
+TIMEFMT=$'\n\n========================\nProgram : %J\nCPU     : %P\nuser    : %*Us\nsystem  : %*Ss\ntotal   : %*Es\n========================\n'
+
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=30000
@@ -56,11 +58,11 @@ alias less='less -NM'
 export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
 alias ls='exa --time-style=long-iso -g'
-alias ll='ls --git --time-style=long-iso -gl'
-alias la='ls --git --time-style=long-iso -agl'
+alias ll='exa --git --time-style=long-iso -gl'
+alias la='exa --git --time-style=long-iso -agl'
 alias l1='exa -1'
 # memoフォルダへ移動
-alias memo='cd ~/memo'
+alias memo='cd ~/memo && vim .'
 # brew系アップデート
 alias brup='brew update && brew upgrade'
 # tmux
@@ -78,7 +80,7 @@ alias gpul='git pull'
 alias glog='git log'
 alias gbra='git branch'
 # 天気
-wttr()
+tenki()
 {
   curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}"
 }
@@ -87,22 +89,12 @@ wttr()
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-export PATH=$PATH:$HOME/.nodebrew/current/bin
-#export PATH="$PATH:`yarn global bin`"
-# mac python
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# added by Anaconda3 5.2.0 installer
-#export PATH="/anaconda3/bin:$PATH"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export GOPATH=$HOME/go
 
 export PATH="$HOME/go/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/completion.zsh.inc'; fi
+eval "$(direnv hook zsh)"

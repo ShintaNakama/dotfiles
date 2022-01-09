@@ -25,4 +25,3 @@ if [ -f '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/path.bash.inc' ]; t
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/nakamashinta/GoogleCloudSDK/google-cloud-sdk/completion.bash.inc'; fi
-
