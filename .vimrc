@@ -8,8 +8,8 @@ set noswapfile
 " ビープ音を消す
 set belloff=all
 "カーソルライン
-set cursorline
-hi clear CursorLine
+"set cursorline
+"hi clear CursorLine
 "行番号
 set number
 "検索結果をハイライトする
@@ -433,28 +433,10 @@ if (empty($TMUX))
 endif
 
 "シンタックス
-"syntax on
-syntax enable
+syntax on
 
-"sqls
-if executable('sqls')
-    augroup LspSqls
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-        \   'name': 'sqls',
-        \   'cmd': {server_info->['sqls']},
-        \   'whitelist': ['sql'],
-        \   'workspace_config': {
-        \     'sqls': {
-        \       'connections': [
-        \         {
-        \           'driver': 'mysql',
-        \           'dataSourceName': 'root:HINATA_DEV@tcp(127.0.0.1:3306)/cosmos_db',
-        \         },
-        \       ],
-        \     },
-        \   },
-        \ })
-    augroup END
-endif
-
+" URLをブラウザで開く
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>

@@ -1,11 +1,4 @@
 [[plugins]]
-repo = 'iamcco/markdown-preview.nvim'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-build = '''
-cd app & yarn install
-'''
-
-[[plugins]]
 repo = '/usr/local/opt/fzf' # fzfコマンドラインツールののフルパス
 [[plugins]]
 repo = 'junegunn/fzf.vim'
@@ -14,8 +7,6 @@ repo = 'itchyny/lightline.vim'
 [[plugins]]
 repo = 'simeji/winresizer'
 [[plugins]]
-repo = 'mattn/emmet-vim'
-[[plugins]]
 repo = 'skanehira/translate.vim'
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace' # 空白削除
@@ -23,20 +14,16 @@ repo = 'bronson/vim-trailing-whitespace' # 空白削除
 repo = 'flazz/vim-colorschemes'
 [[plugins]]
 repo = 'jamespwilliams/bat.vim'
-[[plugins]]
-repo = 'jparise/vim-graphql'
 #[[plugins]]
 #repo = 'mhinz/vim-startify'
 [[plugins]]
 repo = 'Rigellute/rigel'
 [[plugins]]
-repo = 'pangloss/vim-javascript'
-[[plugins]]
-repo = 'mxw/vim-jsx'
-[[plugins]]
 repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-repeat'
+[[plugins]]
+repo = 'tyru/open-browser.vim'
 
 
 #####################
@@ -72,25 +59,6 @@ repo = 'hrsh7th/vim-vsnip'
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
 
-
-[[plugins]]
-repo = 'aklt/plantuml-syntax'
-
-[[plugins]]
-repo = 'tpope/vim-endwise'
-
-#####################
-# For Go
-#####################
-[[plugins]]
-repo = 'mattn/vim-goimports'
-
-[[plugins]]
-repo = 'buoto/gotests-vim'
-
-[[plugins]]
-repo = 'sebdah/vim-delve'
-
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
@@ -100,15 +68,6 @@ repo = 'vim-test/vim-test'
 
 [[plugins]]
 repo = 'tpope/vim-dispatch'
-
-[[plugins]]
-repo = 'rhysd/vim-go-impl'
-
-[[plugins]]
-repo = '110y/vim-go-expr-completion'
-
-##[[plugins]]
-##repo = 'fatih/vim-go'
 
 [[plugins]]
 repo = 'lighttiger2505/sqls.vim'

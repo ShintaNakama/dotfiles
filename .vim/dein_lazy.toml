@@ -1,0 +1,53 @@
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = '''
+cd app & yarn install
+'''
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html', 'css', 'scss']
+
+[[plugins]]
+repo = 'jparise/vim-graphql'
+on_ft = ['graphql']
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'mxw/vim-jsx'
+on_ft = ['typescript']
+
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
+on_ft = ['uml', 'plantuml']
+
+#####################
+# For Go
+#####################
+[[plugins]]
+repo = 'mattn/vim-goimports'
+on_ft = ['go']
+
+[[plugins]]
+repo = 'buoto/gotests-vim'
+on_ft = ['go']
+
+[[plugins]]
+repo = 'sebdah/vim-delve'
+on_ft = ['go']
+
+[[plugins]]
+repo = 'rhysd/vim-go-impl'
+on_ft = ['go']
+
+[[plugins]]
+repo = '110y/vim-go-expr-completion'
+on_ft = ['go']
+
+##[[plugins]]
+##repo = 'fatih/vim-go'
+##on_ft = ['go']
