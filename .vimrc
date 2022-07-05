@@ -35,6 +35,7 @@ endif
 
 "ファイルタイププラグイン
 filetype plugin indent on
+runtime macros/matchit.vim
 set modifiable
 set write
 "展開するスペースの個数
