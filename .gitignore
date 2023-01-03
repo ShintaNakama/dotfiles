@@ -2,3 +2,6 @@
 /.vim/doc/
 /.vim/syntax/
 /.vim/undo/*
+.zprofile
+.vimrc.local
+.vim/vim-colorschemes/

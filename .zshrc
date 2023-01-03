@@ -79,11 +79,29 @@ alias gdif='git diff'
 alias gpul='git pull'
 alias glog='git log'
 alias gbra='git branch'
+alias gpush="git push origin HEAD"
+alias gpushf="git push --force-with-lease --force-if-includes origin HEAD"
 # 天気
 tenki()
 {
   curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}"
 }
+
+# bindkey -v でvimodeにした場合に使う
+##zshプロンプトにモード表示####################################
+#function zle-line-init zle-keymap-select {
+#  case $KEYMAP in
+#    vicmd)
+#    PROMPT="%{$fg[red]%}[%{$reset_color%}%n/%{$fg_bold[red]%}NOR%{$reset_color%}%{$fg[red]%}]%#%{$reset_color%} "
+#    ;;
+#    main|viins)
+#    PROMPT="%{$fg[red]%}[%{$reset_color%}%n/%{$fg_bold[cyan]%}INS%{$reset_color%}%{$fg[red]%}]%#%{$reset_color%} "
+#    ;;
+#  esac
+#  zle reset-prompt
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
 # ----PATH---------------------------------
 export PATH=/usr/local/bin:$PATH
@@ -98,3 +116,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export PATH="$HOME/go/bin:$PATH"
 
 eval "$(direnv hook zsh)"
+
+USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine

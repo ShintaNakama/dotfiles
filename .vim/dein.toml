@@ -11,12 +11,6 @@ repo = 'skanehira/translate.vim'
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace' # 空白削除
 [[plugins]]
-repo = 'flazz/vim-colorschemes'
-[[plugins]]
-repo = 'jamespwilliams/bat.vim'
-#[[plugins]]
-#repo = 'mhinz/vim-startify'
-[[plugins]]
 repo = 'Rigellute/rigel'
 [[plugins]]
 repo = 'tpope/vim-surround'

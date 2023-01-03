@@ -8,8 +8,9 @@ set noswapfile
 " ビープ音を消す
 set belloff=all
 "カーソルライン
-"set cursorline
-"hi clear CursorLine
+set cursorline
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+highlight CursorLine gui=underline guifg=NONE guibg=NONE
 "行番号
 set number
 "検索結果をハイライトする
@@ -301,7 +302,7 @@ let g:lightline = {
 " for vim-test
 let test#strategy = "basic"
 let test#go#runner = 'gotest'
-let test#go#gotest#executable = 'gotest -v -cover'
+let test#go#gotest#executable = 'gotest -race -v -cover'
 " tのあとにCTRL+dでテストをデバッガ経由で実行する
 function! DebugNearest()
   let g:test#go#runner = 'delve'
@@ -428,7 +429,6 @@ if (empty($TMUX))
     "let g:tokyonight_enable_italic = 1
 
     "colorscheme molokai
-    "colorscheme bat
     colorscheme rigel
   endif
 endif
@@ -441,3 +441,7 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>
+
+if filereadable(expand('~/dotfiles/.vimrc.local'))
+  source ~/.vimrc.local
+endif
