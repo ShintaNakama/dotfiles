@@ -1,8 +1,8 @@
 [[plugins]]
-repo = 'iamcco/markdown-preview.nvim'
+repo = 'kat0h/bufpreview.vim'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 build = '''
-cd app & yarn install
+deno task prepare
 '''
 
 [[plugins]]

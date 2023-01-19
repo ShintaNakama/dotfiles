@@ -103,19 +103,15 @@ tenki()
 #zle -N zle-line-init
 #zle -N zle-keymap-select
 
-# ----PATH---------------------------------
+## ----PATH---------------------------------
+eval "$(nodenv init -)"
+
 export PATH=/usr/local/bin:$PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
 export PATH="$HOME/go/bin:$PATH"
-
 eval "$(direnv hook zsh)"
+
+alias memo='cd ~/memo'
+alias dotfiles='cd ~/dotfiles'
 
 USE_GKE_GCLOUD_AUTH_PLUGIN=True
 

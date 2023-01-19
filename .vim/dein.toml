@@ -18,6 +18,8 @@ repo = 'tpope/vim-surround'
 repo = 'tpope/vim-repeat'
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+[[plugins]]
+repo = 'vim-denops/denops.vim'
 
 
 #####################

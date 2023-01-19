@@ -8,7 +8,7 @@ set noswapfile
 " ビープ音を消す
 set belloff=all
 "カーソルライン
-set cursorline
+set nocursorline
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 "行番号
