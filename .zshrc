@@ -63,6 +63,8 @@ alias la='exa --git --time-style=long-iso -agl'
 alias l1='exa -1'
 # memoフォルダへ移動
 alias memo='cd ~/memo && vim .'
+# dotfilesへ移動
+alias dotfiles='cd ~/dotfiles && vim .'
 # brew系アップデート
 alias brup='brew update && brew upgrade'
 # tmux
@@ -108,11 +110,8 @@ eval "$(nodenv init -)"
 
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
 eval "$(direnv hook zsh)"
 
-alias memo='cd ~/memo'
-alias dotfiles='cd ~/dotfiles'
-
 USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine

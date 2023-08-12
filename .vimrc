@@ -23,6 +23,8 @@ set smartcase
 set incsearch
 set nrformats=
 
+set synmaxcol=320
+
 set history=200
 cnoremap <C-p> <up>
 cnoremap <C-n> <down>
@@ -400,7 +402,7 @@ nnoremap <silent> <leader>gs :SearchByGoogle<CR>
 autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
 
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
-let g:netrw_liststyle=1
+let g:netrw_liststyle=0
 " ヘッダを非表示にする
 let g:netrw_banner=0
 " サイズを(K,M,G)で表示する
@@ -445,3 +447,5 @@ nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?
 if filereadable(expand('~/dotfiles/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
+let g:gotests_bin = '/Users/shinta.nakama/go/bin/gotests'
