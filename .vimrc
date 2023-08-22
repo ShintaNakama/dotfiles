@@ -282,9 +282,8 @@ function! g:Date()
   return strftime('%Y/%m/%d').weeks[wday].strftime(' %H:%M')
 endfunction
 
-let g:rigel_lightline = 1
+"let g:rigel_lightline = 1
 let g:lightline = {
-  \ 'colorscheme': 'rigel',
   \ 'active': {
   \   'right': [
   \     ['lineinfo'],
@@ -418,23 +417,25 @@ let g:startify_session_persistence = 1
 " Once vim-javascript is installed you enable flow highlighting
 let g:javascript_plugin_flow = 1
 
-" カラースキーム
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
+"" カラースキーム
+"if (empty($TMUX))
+"  if (has("nvim"))
+"    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"  endif
+"  if (has("termguicolors"))
+"    set termguicolors
+"
+"    "let g:tokyonight_style = 'storm' " available: night, storm
+"    "let g:tokyonight_transparent_background = 0
+"    "let g:tokyonight_enable_italic = 1
+"
+"    "colorscheme molokai
+"    colorscheme rigel
+"  endif
+"endif
+"
 
-    "let g:tokyonight_style = 'storm' " available: night, storm
-    "let g:tokyonight_transparent_background = 0
-    "let g:tokyonight_enable_italic = 1
-
-    "colorscheme molokai
-    colorscheme rigel
-  endif
-endif
-
+colorscheme peachpuff
 "シンタックス
 syntax on
 
@@ -447,5 +448,3 @@ nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?
 if filereadable(expand('~/dotfiles/.vimrc.local'))
   source ~/.vimrc.local
 endif
-
-let g:gotests_bin = '/Users/shinta.nakama/go/bin/gotests'
