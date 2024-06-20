@@ -25,6 +25,10 @@ on_ft = ['typescript']
 repo = 'aklt/plantuml-syntax'
 on_ft = ['uml', 'plantuml']
 
+[[plugins]]
+repo = 'kamykn/spelunker.vim'
+on_ft = ['typescript', 'vue', 'go']
+
 #####################
 # For Go
 #####################

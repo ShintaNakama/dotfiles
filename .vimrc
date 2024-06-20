@@ -23,7 +23,7 @@ set smartcase
 set incsearch
 set nrformats=
 
-set synmaxcol=320
+set synmaxcol=500
 
 set history=200
 cnoremap <C-p> <up>
@@ -98,6 +98,8 @@ inoremap (<Enter> ()<Left><CR><ESC><S-o>
 "inoremap ' ''<LEFT>
 "inoremap " ""<LEFT>
 
+"アスタリスクsearchで次の候補に移動しない(移動した後戻しているだけ
+nmap * *N
 
 "強制終了
 nnoremap qq :q!<CR>
@@ -187,7 +189,7 @@ augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = ""
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
@@ -214,6 +216,7 @@ let g:lsp_settings['gopls'] = {
   \    },
   \    "experimentalWorkspaceModule": v:true,
   \  },
+  \  'whitelist': ['go'],
   \}
 let g:lsp_settings['golangci-lint-langserver'] = {
   \ 'initialization_options': {'command': ['golangci-lint', 'run', '--enable-all', '--disable', 'lll', '--out-format', 'json']},
@@ -304,6 +307,9 @@ let g:lightline = {
 let test#strategy = "basic"
 let test#go#runner = 'gotest'
 let test#go#gotest#executable = 'gotest -race -v -cover'
+" gotestsのテンプレートを指定する
+let g:gotests_template_dir = '/Users/shinta.nakama/dotfiles/gotests_templates/'
+
 " tのあとにCTRL+dでテストをデバッガ経由で実行する
 function! DebugNearest()
   let g:test#go#runner = 'delve'
@@ -397,9 +403,6 @@ endfunction
 command! SearchByGoogle call s:search_by_google()
 nnoremap <silent> <leader>gs :SearchByGoogle<CR>
 
-"
-autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
-
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_liststyle=0
 " ヘッダを非表示にする
@@ -435,7 +438,8 @@ let g:javascript_plugin_flow = 1
 "endif
 "
 
-colorscheme peachpuff
+colorscheme rigel
+hi Search ctermbg=8
 "シンタックス
 syntax on
 
@@ -448,3 +452,6 @@ nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?
 if filereadable(expand('~/dotfiles/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
+" Go の指定された式から左辺を完成
+autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>

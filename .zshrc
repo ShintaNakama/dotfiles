@@ -61,8 +61,10 @@ alias ls='exa --time-style=long-iso -g'
 alias ll='exa --git --time-style=long-iso -gl'
 alias la='exa --git --time-style=long-iso -agl'
 alias l1='exa -1'
+# uuid
+alias uuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n' | pbcopy"
 # memoフォルダへ移動
-alias memo='cd ~/memo && vim .'
+alias mymemo='cd ~/memo && vim .'
 # dotfilesへ移動
 alias dotfiles='cd ~/dotfiles && vim .'
 # brew系アップデート
@@ -87,6 +89,12 @@ alias gpushf="git push --force-with-lease --force-if-includes origin HEAD"
 tenki()
 {
   curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}"
+}
+# drawio
+#alias ndrawio='touch ~/memo/new.drawio && code ~/memo/new.drawio'
+ndrawio()
+{
+  touch ~/memo/"${1}".drawio && code ~/memo/"${1}".drawio
 }
 
 # bindkey -v でvimodeにした場合に使う
@@ -115,3 +123,9 @@ eval "$(rbenv init - zsh)"
 eval "$(direnv hook zsh)"
 
 USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shinta.nakama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shinta.nakama/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/shinta.nakama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shinta.nakama/google-cloud-sdk/completion.zsh.inc'; fi
