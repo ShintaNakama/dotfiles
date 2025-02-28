@@ -10,7 +10,7 @@ end
 config.color_scheme = 'AdventureTime'
 
 -- 背景透過
-config.window_background_opacity = 0.83
+config.window_background_opacity = 0.9
 
 -- 最初からフルスクリーンで起動
 local mux = wezterm.mux

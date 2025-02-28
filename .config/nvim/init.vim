@@ -29,13 +29,6 @@ set history=200
 cnoremap <C-p> <up>
 cnoremap <C-n> <down>
 
-" Undo履歴の保存
-if has('persistent_undo')
- let undo_path = expand('~/.vim/undo')
- exe 'set undodir=' . undo_path
- set undofile
-endif
-
 "ファイルタイププラグイン
 filetype plugin indent on
 runtime macros/matchit.vim
@@ -73,10 +66,11 @@ let mapleader = "\<Space>"
 "set ttimeoutlen=1
 set timeout timeoutlen=3000 ttimeoutlen=100
 
-" キーバインド------------------------------------------------------------------
-" jjをESCキー
-"inoremap <silent> jj <esc>
+"undofile
+set undofile
+set undodir=~/.local/state/nvim/undo
 
+" キーバインド------------------------------------------------------------------
 " Ctrl-p でレジスタ0を貼り付け"
 vnoremap <silent> <C-p> "0p
 
@@ -94,10 +88,6 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 
-" クオーテーションの補完
-"inoremap ' ''<LEFT>
-"inoremap " ""<LEFT>
-
 "アスタリスクsearchで次の候補に移動しない(移動した後戻しているだけ
 nmap * *N
 
@@ -113,121 +103,14 @@ nnoremap - <C-x>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 "" vimshell
-nnoremap <Leader>sh :terminal<CR>
-
-"" fzf
-nnoremap <silent> <Leader>ff :Files<CR>
-nnoremap <silent> <Leader>fg :<C-u>silent call <SID>find_rip_grep()<CR>
-function! s:find_rip_grep() abort
-    call fzf#vim#grep(
-                \   'rg --ignore-file ~/.ignore --column --line-number --no-heading --hidden --smart-case .+',
-                \   1,
-                \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
-                \   0,
-                \ )
-endfunction
+nnoremap <Leader>sh :above split \| terminal<CR>
+"NeoVimではデフォルトでターミナルモードが有効になっているので<C-]>でノーマルモードに戻す
+tnoremap <C-[> <C-\><C-n>
 
 " plugin manager ---------------------------------------------
-let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vimがインストールされていない場合はインストール
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . s:dein_repo_dir
-endif
-
-" プラグインのdein.tomlとdein_lazy.tomlに記述
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  " .toml file
-  let s:rc_dir = expand('~/.vim')
-  if !isdirectory(s:rc_dir)
-    call mkdir(s:rc_dir, 'p')
-  endif
-  let s:toml = s:rc_dir . '/dein.toml'
-  let s:lazy_toml = s:rc_dir . '/dein_lazy.toml'
-
-  " read toml and cache
-  call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
-  " end settings
-  call dein#end()
-  call dein#save_state()
-endif
-
-"" インストールされていないプラグインがある場合はインストール
-" deinの挙動が変わってcheck_installすると確認が入るようになったので一旦コメントアウト
-if dein#check_install()
-  call dein#install()
-endif
-
-" dein.tomlやdein_lazy.tomlから削除したプラグインを削除する
-let s:removed_plugins = dein#check_clean()
-if len(s:removed_plugins) > 0
-  call map(s:removed_plugins, "delete(v:val, 'rf')")
-  call dein#recache_runtimepath()
-endif
-
-" For LSP settings
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <C-]> <plug>(lsp-definition)
-  nmap <buffer> <f2> <plug>(lsp-rename)
-  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
-  nmap <buffer> <Leader>r <plug>(lsp-references)
-  nmap <buffer> <Leader>i <plug>(lsp-implementation)
-  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = ""
-
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-" let g:asyncomplete_auto_popup = 1
-" let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
-let g:lsp_preview_float = 1
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-
-let g:lsp_settings = {}
-let g:lsp_settings['gopls'] = {
-  \  'workspace_config': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \  },
-  \  'initialization_options': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \    "experimentalWorkspaceModule": v:true,
-  \  },
-  \  'whitelist': ['go'],
-  \}
-let g:lsp_settings['golangci-lint-langserver'] = {
-  \ 'initialization_options': {'command': ['golangci-lint', 'run', '--enable-all', '--disable', 'lll', '--out-format', 'json']},
-  \ 'whitelist': ['go'],
-  \}
-
-"" For snippets
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" Lua のプラグイン設定を読み込む
+lua require("plugins")
+lua require("local")
 
 set completeopt=menuone,noinsert
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
@@ -304,20 +187,6 @@ let g:lightline = {
   \ },
   \}
 
-" for vim-test
-let test#strategy = "basic"
-let test#go#runner = 'gotest'
-let test#go#gotest#executable = 'gotest -race -v -cover'
-" gotestsのテンプレートを指定する
-let g:gotests_template_dir = '/Users/shinta.nakama/dotfiles/gotests_templates/'
-
-" tのあとにCTRL+dでテストをデバッガ経由で実行する
-function! DebugNearest()
-  let g:test#go#runner = 'delve'
-  TestNearest
-  unlet g:test#go#runner
-endfunction
-nmap <silent> t<C-d> :call DebugNearest()<CR>
 
 " 構造体にinterfaceを自動実装する(対象のGo module内に移動して、構造体名にカーソルを当てる) :IMP
 autocmd BufNewFile,BufRead *go command! IMP call s:go_fzf_implement_interface()
@@ -421,24 +290,6 @@ let g:startify_session_persistence = 1
 " Once vim-javascript is installed you enable flow highlighting
 let g:javascript_plugin_flow = 1
 
-"" カラースキーム
-"if (empty($TMUX))
-"  if (has("nvim"))
-"    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"  endif
-"  if (has("termguicolors"))
-"    set termguicolors
-"
-"    "let g:tokyonight_style = 'storm' " available: night, storm
-"    "let g:tokyonight_transparent_background = 0
-"    "let g:tokyonight_enable_italic = 1
-"
-"    "colorscheme molokai
-"    colorscheme rigel
-"  endif
-"endif
-"
-
 colorscheme rigel
 hi Search ctermbg=8
 "シンタックス
@@ -450,9 +301,6 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>
 
-if filereadable(expand('~/dotfiles/.vimrc.local'))
-  source ~/.vimrc.local
-endif
-
 " Go の指定された式から左辺を完成
 autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
+

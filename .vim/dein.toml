@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '/usr/local/opt/fzf' # fzfコマンドラインツールののフルパス
+repo = '/opt/homebrew/opt/fzf' # fzfコマンドラインツールののフルパス
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 [[plugins]]
@@ -22,6 +22,8 @@ repo = 'tyru/open-browser.vim'
 repo = 'vim-denops/denops.vim'
 [[plugins]]
 repo = 'github/copilot.vim'
+[[plugins]]
+repo = 'tyru/open-browser-github.vim'
 
 
 #####################
@@ -39,17 +41,17 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
 
-[[plugins]]
-repo = 'SirVer/ultisnips'
-
-[[plugins]]
-repo = 'honza/vim-snippets'
-
-[[plugins]]
-repo = 'thomasfaingnaert/vim-lsp-snippets'
-
-[[plugins]]
-repo = 'thomasfaingnaert/vim-lsp-ultisnips'
+#[[plugins]]
+#repo = 'SirVer/ultisnips'
+#
+#[[plugins]]
+#repo = 'honza/vim-snippets'
+#
+#[[plugins]]
+#repo = 'thomasfaingnaert/vim-lsp-snippets'
+#
+#[[plugins]]
+#repo = 'thomasfaingnaert/vim-lsp-ultisnips'
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
@@ -68,4 +70,4 @@ repo = 'vim-test/vim-test'
 repo = 'tpope/vim-dispatch'
 
 [[plugins]]
-repo = 'lighttiger2505/sqls.vim'
+repo = 'sqls-server/sqls.vim'
