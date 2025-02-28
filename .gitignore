@@ -5,3 +5,4 @@
 .zprofile
 .vimrc.local
 .vim/vim-colorschemes/
+.config/nvim/lua/local.lua
