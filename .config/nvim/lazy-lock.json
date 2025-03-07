@@ -21,6 +21,7 @@
   "sqls.nvim": { "branch": "main", "commit": "a514379f5f89bf72955ed3bf5c1c31a40b8a1472" },
   "telescope.nvim": { "branch": "master", "commit": "814f102cd1da3dc78c7d2f20f2ef3ed3cdf0e6e4" },
   "translate.vim": { "branch": "master", "commit": "7141ef44c68c06ccd7b8b3f97432330613207f80" },
+  "vim-fugitive": { "branch": "master", "commit": "4a745ea72fa93bb15dd077109afbb3d1809383f2" },
   "vim-goimports": { "branch": "master", "commit": "e50dae830c3cc405003bbc79e90c2dfb5c8da7f5" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
