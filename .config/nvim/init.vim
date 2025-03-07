@@ -162,31 +162,6 @@ map <silent> [Tag]n :tabnext<CR>
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
-" ステータスラインに日付表示
-function! g:Date()
-  let weeks = [ "(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)" ]
-  let wday = strftime("%w")
-  return strftime('%Y/%m/%d').weeks[wday].strftime(' %H:%M')
-endfunction
-
-"let g:rigel_lightline = 1
-let g:lightline = {
-  \ 'active': {
-  \   'right': [
-  \     ['lineinfo'],
-  \     ['percent'],
-  \     ['charcode','fileencoding','date'],
-  \   ],
-  \ },
-  \ 'component_function': {
-  \   'date': 'Date',
-  \ },
-  \ 'component_expand': {
-  \ },
-  \ 'component_type': {
-  \ },
-  \}
-
 
 " 構造体にinterfaceを自動実装する(対象のGo module内に移動して、構造体名にカーソルを当てる) :IMP
 autocmd BufNewFile,BufRead *go command! IMP call s:go_fzf_implement_interface()
