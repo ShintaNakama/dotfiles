@@ -32,4 +32,5 @@ require("lazy").setup({
   { import = "plugins.goimports" },
   { import = "plugins.copilot" },
   { import = "plugins.vim-fugitive" },
+  { import = "plugins.lualine" },
 })
