@@ -72,6 +72,13 @@ return {
       -- LSP Hover
       keymap("n", "<Leader>h", vim.lsp.buf.hover, { desc = "Show hover documentation" })
 
+      -- LSP code_action
+      -- keymap("n", "<Leader>ca", function()
+      --   require("telescope.builtin").lsp_code_action()
+      -- end, {desc = "Telescope LSP Code Actions" })
+      vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "Show LSP Code Actions" })
+
+
       -- LSP References を Telescope で表示
       keymap("n", "<Leader>r", function()
         require("telescope.builtin").lsp_references()

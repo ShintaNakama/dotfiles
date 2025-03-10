@@ -66,7 +66,7 @@ alias uuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n' | pbcopy"
 # memoフォルダへ移動
 alias mymemo='cd ~/memo && vim .'
 # dotfilesへ移動
-alias dotfiles='cd ~/dotfiles && vim .'
+alias dotfiles='cd ~/dotfiles && nvim .'
 # brew系アップデート
 alias brup='brew update && brew upgrade'
 # tmux
