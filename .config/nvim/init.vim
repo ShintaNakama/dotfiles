@@ -279,3 +279,6 @@ nnoremap <Leader>o :<C-u>execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?
 " Go の指定された式から左辺を完成
 autocmd FileType go nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
 
+" https://github.com/cweill/gotests のinstallが必要
+nnoremap <leader>gotes :!gotests -w -only ^<C-R>=expand("<cword>")<CR>$ %<CR>
+
